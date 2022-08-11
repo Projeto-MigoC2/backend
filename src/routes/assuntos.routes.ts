@@ -1,15 +1,15 @@
 import { Router } from 'express';
 
-import { CreateAssuntoController } from '../modules/materia/useCases/createAssunto/CreateAssuntoController';
+import { CriarAssuntoController } from '../modules/materia/useCases/criarAssunto/CriarAssuntoController';
 
-import { DeleteAssuntoController } from '../modules/materia/useCases/deleteAssunto/DeleteAssuntoController';
-import { ListAssuntoController } from '../modules/materia/useCases/listAssuntos/ListAssuntosController';
+import { DeletarAssuntoController } from '../modules/materia/useCases/deletarAssunto/DeletarAssuntoController';
+import { ListarAssuntoController } from '../modules/materia/useCases/listarAssuntos/ListarAssuntosController';
 
 const assuntosRoutes = Router()
 
-const createAssuntoController = new CreateAssuntoController();
-const deleteAssuntoController = new DeleteAssuntoController();
-const listAssuntoController = new ListAssuntoController();
+const createAssuntoController = new CriarAssuntoController();
+const deleteAssuntoController = new DeletarAssuntoController();
+const listAssuntoController = new ListarAssuntoController();
 
 assuntosRoutes.post('/', createAssuntoController.handle);
 assuntosRoutes.delete('/', deleteAssuntoController.handle);

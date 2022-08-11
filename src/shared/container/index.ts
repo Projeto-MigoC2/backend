@@ -1,9 +1,9 @@
 import { container } from "tsyringe";
 
-import { IAssuntosRepository } from "../../modules/materia/repositories/IAssuntosRepository";
-import { AssuntosRepository } from "../../modules/materia/repositories/implementations/AssuntosRepository";
+import { IRepositorioAssuntos } from "../../modules/materia/repositorios/IRepositorioAssuntos";
+import { RepositorioAssuntos } from "../../modules/materia/repositorios/implementations/RepositorioAssuntos";
 
-container.registerSingleton<IAssuntosRepository>(
-  "AssuntosRepository",
-  AssuntosRepository
+container.registerSingleton<IRepositorioAssuntos>(
+  "RepositorioAssuntos",
+  RepositorioAssuntos
 );

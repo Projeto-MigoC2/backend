@@ -1,11 +1,11 @@
-import { Assunto } from '../entities/Assunto';
+import { Assunto } from '../entidades/Assunto';
 
-interface ICreateAssuntoDTO {
+interface ICriarAssuntoDTO {
   nome: string;
 }
 
-interface IAssuntosRepository {
-  create({ nome }: ICreateAssuntoDTO): Promise<void>;
+interface IRepositorioAssuntos {
+  create({ nome }: ICriarAssuntoDTO): Promise<void>;
   list(): Promise<Assunto[]>;
   findByName(nome: string): Promise<Assunto>;
   // findById(id: string): Promise<Assunto>;
@@ -13,4 +13,4 @@ interface IAssuntosRepository {
   update(nome: string): Promise<void>;
 }
 
-export { IAssuntosRepository, ICreateAssuntoDTO };
+export { IRepositorioAssuntos, ICriarAssuntoDTO };

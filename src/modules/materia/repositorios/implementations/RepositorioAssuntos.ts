@@ -1,9 +1,9 @@
 import { Repository } from "typeorm";
 import { AppDataSource } from "../../../../DockerDataSource";
-import { Assunto } from "../../entities/Assunto";
-import { IAssuntosRepository, ICreateAssuntoDTO } from "../IAssuntosRepository";
+import { Assunto } from "../../entidades/Assunto";
+import { IRepositorioAssuntos, ICriarAssuntoDTO } from "../IRepositorioAssuntos";
 
-class AssuntosRepository implements IAssuntosRepository {
+class RepositorioAssuntos implements IRepositorioAssuntos {
   private repository: Repository<Assunto>;
 
   constructor() {
@@ -11,7 +11,7 @@ class AssuntosRepository implements IAssuntosRepository {
     this.repository = AppDataSource.getRepository(Assunto);
 
   }
-  async create({ nome }: ICreateAssuntoDTO): Promise<void> {
+  async create({ nome }: ICriarAssuntoDTO): Promise<void> {
     const assunto = this.repository.create({ nome });
     await this.repository.save(assunto);
   }
@@ -37,4 +37,4 @@ class AssuntosRepository implements IAssuntosRepository {
   }
 }
 
-export { AssuntosRepository };
+export { RepositorioAssuntos };

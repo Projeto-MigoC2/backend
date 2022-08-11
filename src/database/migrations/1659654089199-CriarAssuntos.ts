@@ -8,10 +8,22 @@ export class CriarAssuntos1659654089199 implements MigrationInterface {
                 name: 'assuntos',
                 columns: [
                     {
+                        name: 'id',
+                        type: 'uuid',
+                        isPrimary: true,
+                    },
+                    {
                         name: "nome",
                         type: "varchar",
-                        isPrimary: true,
+                    },
+                    // array of conteudos id
+                    {
+                        name: "conteudos_id",
+                        type: "uuid[]",
+                        isNullable: true
+
                     }
+
                 ]
             })
         )

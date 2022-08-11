@@ -11,7 +11,7 @@ const AppDataSource = new DataSource({
     "./src/database/migrations/*.ts"
   ],
   entities: [
-    "./src/modules/**/entities/*.ts"
+    "./src/modules/**/entidades/*.ts"
   ]
 })
 

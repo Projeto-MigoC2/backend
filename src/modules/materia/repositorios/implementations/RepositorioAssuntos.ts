@@ -11,8 +11,8 @@ class RepositorioAssuntos implements IRepositorioAssuntos {
     this.repository = AppDataSource.getRepository(Assunto);
 
   }
-  async create({ nome }: ICriarAssuntoDTO): Promise<void> {
-    const assunto = this.repository.create({ nome });
+  async create({ titulo }: ICriarAssuntoDTO): Promise<void> {
+    const assunto = this.repository.create({ titulo });
     await this.repository.save(assunto);
   }
 
@@ -21,8 +21,8 @@ class RepositorioAssuntos implements IRepositorioAssuntos {
     return assuntos;
   }
 
-  async findByName(nome: string): Promise<Assunto> {
-    const assunto = await this.repository.findOne({ where: { nome } });
+  async findByName(titulo: string): Promise<Assunto> {
+    const assunto = await this.repository.findOne({ where: { titulo } });
     return assunto;
   }
 
@@ -30,9 +30,9 @@ class RepositorioAssuntos implements IRepositorioAssuntos {
     await this.repository.delete(id);
   }
 
-  async update(nome: string): Promise<void> {
-    const assunto = await this.findByName(nome);
-    assunto.nome = nome;
+  async update(titulo: string): Promise<void> {
+    const assunto = await this.findByName(titulo);
+    assunto.titulo = titulo;
     await this.repository.save(assunto);
   }
 }

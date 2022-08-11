@@ -3,7 +3,7 @@ import { inject, injectable } from "tsyringe";
 import { IRepositorioAssuntos } from "../../repositorios/IRepositorioAssuntos";
 
 interface IRequest {
-  nome: string;
+  titulo: string;
 }
 
 @injectable()
@@ -13,8 +13,8 @@ class DeletarAssuntoUseCase {
     private RepositorioAssuntos: IRepositorioAssuntos
   ) { }
 
-  async execute({ nome }: IRequest): Promise<boolean> {
-    const assunto = await this.RepositorioAssuntos.findByName(nome);
+  async execute({ titulo }: IRequest): Promise<boolean> {
+    const assunto = await this.RepositorioAssuntos.findByName(titulo);
 
     if (!assunto) {
       return false;

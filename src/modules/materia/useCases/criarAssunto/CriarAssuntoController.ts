@@ -4,11 +4,11 @@ import { CriarAssuntoUseCase } from "./CriarAssuntoUseCase";
 
 class CriarAssuntoController {
   async handle(request: Request, response: Response) {
-    const { nome } = request.body;
+    const { titulo } = request.body;
 
     const criarAssuntoUseCase = container.resolve(CriarAssuntoUseCase);
 
-    const criar = await criarAssuntoUseCase.execute({ nome });
+    const criar = await criarAssuntoUseCase.execute({ titulo });
 
     if (criar) {
       return response.status(201).send();

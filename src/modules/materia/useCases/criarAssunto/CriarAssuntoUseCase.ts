@@ -3,7 +3,7 @@ import { inject, injectable } from "tsyringe";
 import { IRepositorioAssuntos } from "../../repositorios/IRepositorioAssuntos";
 
 interface IRequest {
-  nome: string;
+  titulo: string;
 }
 
 @injectable()
@@ -13,15 +13,15 @@ class CriarAssuntoUseCase {
     private RepositorioAssuntos: IRepositorioAssuntos
   ) { }
 
-  async execute({ nome }: IRequest): Promise<boolean> {
-    const assuntoJaExiste = await this.RepositorioAssuntos.findByName(nome);
+  async execute({ titulo }: IRequest): Promise<boolean> {
+    const assuntoJaExiste = await this.RepositorioAssuntos.findByName(titulo);
 
     if (assuntoJaExiste) {
       return false;
 
     }
     else {
-      await this.RepositorioAssuntos.create({ nome });
+      await this.RepositorioAssuntos.create({ titulo });
       return true;
     }
 

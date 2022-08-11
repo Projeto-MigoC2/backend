@@ -7,7 +7,7 @@ class Assunto {
   id?: string;
 
   @Column()
-  nome: string;
+  titulo: string;
 
   @Column("varchar", { array: true, nullable: true })
   conteudos_id: string[];

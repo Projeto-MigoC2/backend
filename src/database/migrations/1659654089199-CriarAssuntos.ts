@@ -13,7 +13,7 @@ export class CriarAssuntos1659654089199 implements MigrationInterface {
                         isPrimary: true,
                     },
                     {
-                        name: "nome",
+                        name: "titulo",
                         type: "varchar",
                     },
                     // array of conteudos id

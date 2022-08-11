@@ -4,11 +4,11 @@ import { DeletarAssuntoUseCase } from "./DeletarAssuntoUseCase";
 
 class DeletarAssuntoController {
   async handle(request: Request, response: Response) {
-    const { nome } = request.body;
+    const { titulo } = request.body;
 
     const deletarAssuntoUseCase = container.resolve(DeletarAssuntoUseCase);
 
-    const apagar = await deletarAssuntoUseCase.execute({ nome });
+    const apagar = await deletarAssuntoUseCase.execute({ titulo });
 
     if (apagar) {
       return response.status(200).send();

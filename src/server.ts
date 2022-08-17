@@ -6,10 +6,10 @@ import "./shared/container";
 
 AppDataSource.initialize()
   .then(() => {
-    console.log("Data Source has been initialized!")
+    console.log("Conexão com o banco de dados bem sucedida!");
   })
   .catch((err) => {
-    console.error("Error during Data Source initialization", err)
+    console.error(" Conexão com o banco de dados falhou ", err)
   })
 
 const app = express();

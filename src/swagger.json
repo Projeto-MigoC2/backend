@@ -1,0 +1,204 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "MigoC2 API",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/assuntos": {
+      "post": {
+        "tags": [
+          "Assuntos"
+        ],
+        "summary": "Criar assunto",
+        "description": "Cria um novo assunto",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "titulo": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "titulo": "Série de potências"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Assunto criado com sucesso"
+          },
+          "400": {
+            "description": "Assunto já cadastrado"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Assuntos"
+        ],
+        "summary": "Listar assuntos",
+        "description": "Lista todos os assuntos cadastrados",
+        "responses": {
+          "200": {
+            "description": "Lista de assuntos"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Assuntos"
+        ],
+        "summary": "Deletar assunto",
+        "description": "Deleta um assunto",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "titulo": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "titulo": "Série de potências"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Assunto deletado com sucesso"
+          },
+          "404": {
+            "description": "Assunto não encontrado"
+          }
+        }
+      }
+    },
+    "/conteudos": {
+      "post": {
+        "tags": [
+          "Conteudos"
+        ],
+        "summary": "Criar conteudo",
+        "description": "Cria um novo conteudo",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "titulo": {
+                    "type": "string"
+                  },
+                  "resumo": {
+                    "type": "string"
+                  },
+                  "elaboracao": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "titulo": "Somatório",
+                  "resumo": "somatório é a adição de uma sequência de quaisquer tipos de números, chamados parcelas ou somando; o resultado é sua soma ou total.",
+                  "elaboracao": "Podemos descrever somas com múltiplos termos usando o operador sigma..."
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Conteudo criado com sucesso"
+          },
+          "400": {
+            "description": "Conteudo já cadastrado"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Conteudos"
+        ],
+        "summary": "Listar conteudos",
+        "description": "Lista todos os conteudos cadastrados",
+        "responses": {
+          "200": {
+            "description": "Lista de conteudos"
+          }
+        }
+      }
+    },
+    "/conteudos/assunto": {
+      "patch": {
+        "tags": [
+          "Relação entre assuntos e conteudos"
+        ],
+        "summary": "adicionar um conteudo a um assunto",
+        "description": "Atribui um conteudo a um assunto",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "assunto": {
+                    "type": "string"
+                  },
+                  "conteudo": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "assunto": "Série de potências",
+                  "conteudo": "Somatório"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Conteudo atualizado com sucesso"
+          },
+          "404": {
+            "description": "Conteudo não encontrado"
+          }
+        }
+      }
+    },
+    "/assuntos/{titulo}": {
+      "get": {
+        "tags": [
+          "Relação entre assuntos e conteudos"
+        ],
+        "summary": "Listar conteudos de um assunto",
+        "description": "Retorna uma lista de conteudos de um assunto",
+        "parameters": [
+          {
+            "name": "titulo",
+            "in": "path",
+            "description": "Título do assunto",
+            "schema": {
+              "type": "string"
+            },
+            "example": "Série de potências"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Assunto encontrado"
+          }
+        }
+      }
+    }
+  }
+}

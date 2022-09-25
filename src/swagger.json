@@ -83,6 +83,34 @@
         }
       }
     },
+    "/assuntos/pesquisa": {
+      "get": {
+        "tags": [
+          "Assuntos"
+        ],
+        "summary": "Pesquisar assunto",
+        "description": "Pesquisa um assunto",
+        "parameters": [
+          {
+            "name": "titulo",
+            "in": "query",
+            "description": "Título do assunto",
+            "example": "Série de potências",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Assunto pesquisado é retornado"
+          },
+          "404": {
+            "description": "Assunto não encontrado"
+          }
+        }
+      }
+    },
     "/conteudos": {
       "post": {
         "tags": [
@@ -133,6 +161,34 @@
         "responses": {
           "200": {
             "description": "Lista de conteudos"
+          }
+        }
+      }
+    },
+    "/conteudos/pesquisa": {
+      "get": {
+        "tags": [
+          "Conteudos"
+        ],
+        "summary": "Pesquisar conteudo",
+        "description": "Pesquisa um conteudo",
+        "parameters": [
+          {
+            "name": "titulo",
+            "in": "query",
+            "description": "Título do conteudo",
+            "example": "Somatório",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Conteudo pesquisado é retornado"
+          },
+          "404": {
+            "description": "Conteudo não encontrado"
           }
         }
       }

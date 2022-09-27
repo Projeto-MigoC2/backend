@@ -17,6 +17,7 @@
     "ddev": "ts-node-dev --poll --inspect --transpile-only --ignore-watch node_modules --respawn src/server.ts"
   },
   "devDependencies": {
+    "eslint": "^8.24.0",
     "typescript": "^4.7.4"
   }
 }

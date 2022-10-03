@@ -13,6 +13,7 @@ interface IRepositorioConteudos {
   listarTudo(): Promise<Conteudo[]>;
   listarPorAssunto(TituloAssunto: string): Promise<Conteudo[]>;
   findByName(titulo: string): Promise<Conteudo>;
+  findByText(text: string): Promise<Conteudo[]>;
   // findById(id: string): Promise<Conteudo>;
   delete(id: string): Promise<void>;
   update(titulo: string): Promise<void>;

@@ -15,6 +15,7 @@ class RepositorioConteudos implements IRepositorioConteudos {
     this.assuntoRepository = new RepositorioAssuntos();
 
   }
+
   async create({ titulo, resumo, elaboracao }: ICreateConteudoDTO): Promise<void> {
     const conteudo = await this.repository.create({ titulo, resumo, elaboracao });
     this.repository.save(conteudo);
@@ -45,6 +46,11 @@ class RepositorioConteudos implements IRepositorioConteudos {
     const conteudo = await this.findByName(titulo);
     conteudo.titulo = titulo;
     await this.repository.save(conteudo);
+  }
+
+  async findByText(text: string): Promise<Conteudo[]> {
+    const conteudos = await this.repository.createQueryBuilder("conteudo").where("conteudo.titulo ILIKE :text OR conteudo.resumo ILIKE :text OR conteudo.elaboracao ILIKE :text", { text: `%${text}%` }).getMany();
+    return conteudos;
   }
 
 }

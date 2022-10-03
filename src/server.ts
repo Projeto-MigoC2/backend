@@ -24,4 +24,4 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 app.use(router)
 
-app.listen(3000, () => console.log("aplicação rodando na porta 3000\nlink para o swagger: http://localhost:3000/api-docs/#/Assuntos"));
+app.listen(3000, () => console.log("aplicação rodando na porta 3000\nlink para o swagger: http://localhost:3000/api-docs/"));

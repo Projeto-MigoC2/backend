@@ -1,5 +1,7 @@
 # MigoC2-Backend
-Repositório destinado ao backend do projeto MigoC2
+Repositório destinado ao backend do projeto MigoC2.
+Para ver os métodos da API já implementados, acesse o link a baixo com a aplicação rodando:  
+http://localhost:3000/api-docs/
 
 ## Iniciando ambiente
 

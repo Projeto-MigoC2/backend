@@ -8,10 +8,10 @@ const AppDataSource = new DataSource({
   password: "segredo",
   database: "migoc2",
   "migrations": [
-    "./src/database/migrations/*.ts"
+    "./dist/database/migrations/*.js"
   ],
   entities: [
-    "./src/modules/**/entidades/*.ts"
+    "./dist/modules/**/entidades/*.js"
   ]
 })
 

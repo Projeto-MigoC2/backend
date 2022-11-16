@@ -1,11 +1,13 @@
+import { Link } from "@prisma/client";
 import { inject, injectable } from "tsyringe";
 
 import { IRepositorioConteudos } from "../../repositorios/IRepositorioConteudos";
 
 interface IRequest {
-  titulo: string;
-  resumo: string;
-  elaboracao: string;
+  nome: string;
+  corpo: string;
+  links: Link[];
+  moduloId: string;
 }
 
 @injectable()
@@ -15,15 +17,15 @@ class CriarConteudoUseCase {
     private RepositorioConteudos: IRepositorioConteudos
   ) { }
 
-  async execute({ titulo, resumo, elaboracao }: IRequest): Promise<boolean> {
-    const ConteudoJaExiste = await this.RepositorioConteudos.findByName(titulo);
+  async execute({ nome, corpo, links, moduloId }: IRequest): Promise<boolean> {
+    const ConteudoJaExiste = await this.RepositorioConteudos.findByName(nome);
 
     if (ConteudoJaExiste) {
       return false;
 
     }
     else {
-      await this.RepositorioConteudos.create({ titulo, resumo, elaboracao });
+      await this.RepositorioConteudos.create({ nome, corpo, links, moduloId });
       return true;
     }
 

@@ -1,0 +1,41 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Conteudo {
+  id        String   @id @default(uuid())
+  nome      String   @unique
+  corpo     String
+  // links : {tag: string, url: string}[]
+  links     Link[]
+  modulo    Modulo   @relation(fields: [moduloId], references: [id])
+  moduloId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Link {
+  id         String   @id @default(uuid())
+  tag        String
+  url        String
+  conteudo   Conteudo @relation(fields: [conteudoId], references: [id])
+  // conteudoId default to conteudo.id
+  conteudoId String   @default(dbgenerated("conteudo.id"))
+}
+
+model Modulo {
+  id        String     @id @default(uuid())
+  nome      String     @unique
+  conteudos Conteudo[]
+  exemplo   String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}

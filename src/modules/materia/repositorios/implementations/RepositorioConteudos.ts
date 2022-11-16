@@ -1,58 +1,127 @@
-import { Repository } from "typeorm";
-import { AppDataSource } from "../../../../DockerDataSource";
-import { IRepositorioAssuntos } from "../IRepositorioAssuntos";
-import { RepositorioAssuntos } from "./RepositorioAssuntos";
-import { Conteudo } from "../../entidades/Conteudo";
+import { Conteudo, Link, PrismaClient } from "@prisma/client";
 import { ICreateConteudoDTO, IRepositorioConteudos } from "../IRepositorioConteudos";
 
 
 class RepositorioConteudos implements IRepositorioConteudos {
-  private repository: Repository<Conteudo>;
-  private assuntoRepository: IRepositorioAssuntos;
+
+  private repository: PrismaClient;
+
   constructor() {
 
-    this.repository = AppDataSource.getRepository(Conteudo);
-    this.assuntoRepository = new RepositorioAssuntos();
+    this.repository = new PrismaClient();
+
 
   }
 
-  async create({ titulo, resumo, elaboracao }: ICreateConteudoDTO): Promise<void> {
-    const conteudo = await this.repository.create({ titulo, resumo, elaboracao });
-    this.repository.save(conteudo);
+
+  async create({ nome, corpo, links, moduloId }: ICreateConteudoDTO): Promise<void> {
+
+
+    const conteudo = await this.repository.conteudo.create({
+      data: {
+        nome: nome,
+        corpo: corpo,
+        moduloId: moduloId
+      }
+    })
+
+    await this.addLinks(conteudo.id, links)
+
+
   }
-  async adicionarAssunto(TituloConteudo: string, TituloAssunto: string): Promise<void> {
-    const conteudo = await this.findByName(TituloConteudo);
-    const assunto = await this.assuntoRepository.findByName(TituloAssunto);
-    conteudo.assunto = assunto;
-    this.repository.save(conteudo);
+
+  async addLinks(id: string, links: Link[]): Promise<void> {
+    await this.repository.conteudo.update({
+      where: {
+        id: id
+      },
+      data: {
+        links: {
+          create: links
+        }
+      }
+    })
   }
+
   async listarTudo(): Promise<Conteudo[]> {
-    const conteudos = await this.repository.find();
-    return conteudos;
+
+
+    const conteudos = await this.repository.conteudo.findMany({
+      include: {
+        links: true
+      }
+    })
+
+    return conteudos
+
+
   }
-  async listarPorAssunto(TituloAssunto: string): Promise<Conteudo[]> {
-    const assunto = await this.assuntoRepository.findByName(TituloAssunto);
-    const conteudos = await this.repository.find({ where: { assunto } });
-    return conteudos;
+  async listarPorModulo(nomeModulo: string): Promise<Conteudo[]> {
+
+    const conteudos = await this.repository.conteudo.findMany({
+      where: {
+        modulo: {
+          nome: nomeModulo
+        }
+      },
+      include: {
+        links: true
+      }
+    })
+
+    return conteudos
+
+
   }
-  async findByName(titulo: string): Promise<Conteudo> {
-    const conteudo = await this.repository.findOne({ where: { titulo } });
-    return conteudo;
+  async findByName(nome: string): Promise<Conteudo> {
+
+    const conteudo = await this.repository.conteudo.findUnique({
+      where: {
+        nome: nome
+      },
+      include: {
+        links: true
+      }
+    })
+
+    return conteudo
+
+
+  }
+  async findByText(text: string): Promise<Conteudo[]> {
+
+    const conteudos = await this.repository.conteudo.findMany({
+      where: {
+        nome: {
+          contains: text
+        }
+      },
+      include: {
+        links: true
+      }
+    })
+
+    return conteudos
+
   }
   async delete(id: string): Promise<void> {
-    await this.repository.delete(id);
-  }
-  async update(titulo: string): Promise<void> {
-    const conteudo = await this.findByName(titulo);
-    conteudo.titulo = titulo;
-    await this.repository.save(conteudo);
-  }
 
-  async findByText(text: string): Promise<Conteudo[]> {
-    const conteudos = await this.repository.createQueryBuilder("conteudo").where("conteudo.titulo ILIKE :text OR conteudo.resumo ILIKE :text OR conteudo.elaboracao ILIKE :text", { text: `%${text}%` }).getMany();
-    return conteudos;
+    await this.repository.conteudo.delete({
+      where: {
+        id: id
+      }
+    })
+
+
+  }
+  async update(nome: string): Promise<void> {
+
+    // not implemented
+
+
   }
 
 }
+
 
 export { RepositorioConteudos };

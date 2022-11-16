@@ -1,5 +1,5 @@
 import { inject, injectable } from "tsyringe";
-import { Conteudo } from "../../entidades/Conteudo";
+import { Conteudo } from "@prisma/client";
 
 import { IRepositorioConteudos } from "../../repositorios/IRepositorioConteudos";
 

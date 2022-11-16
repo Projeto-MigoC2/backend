@@ -4,11 +4,11 @@ import { CriarConteudoUseCase } from "./CriarConteudoUseCase";
 
 class CriarConteudoController {
   async handle(request: Request, response: Response) {
-    const { titulo, resumo, elaboracao } = request.body;
+    const { nome, corpo, links, moduloId } = request.body;
 
     const criarConteudoUseCase = container.resolve(CriarConteudoUseCase);
 
-    const criar = await criarConteudoUseCase.execute({ titulo, resumo, elaboracao });
+    const criar = await criarConteudoUseCase.execute({ nome, corpo, links, moduloId });
 
     if (criar) {
       return response.status(201).send();

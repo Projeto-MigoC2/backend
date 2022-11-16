@@ -1,22 +1,24 @@
-import { Conteudo } from "../entidades/Conteudo";
+import { Conteudo, Link, } from '@prisma/client';
+import { ILink } from '../entidades/Link';
 
 interface ICreateConteudoDTO {
-  titulo: string;
-  resumo: string;
-  elaboracao: string;
+  nome: string;
+  corpo: string;
+  links: Link[];
+  moduloId: string;
 }
 
 interface IRepositorioConteudos {
-  create({ titulo, resumo, elaboracao }: ICreateConteudoDTO): Promise<void>;
+  create({ nome, corpo, links }: ICreateConteudoDTO): Promise<void>;
   // adicionarTags(id: string, tags: string[]): Promise<void>;
-  adicionarAssunto(TituloConteudo: string, TituloAssunto: string): Promise<void>;
   listarTudo(): Promise<Conteudo[]>;
-  listarPorAssunto(TituloAssunto: string): Promise<Conteudo[]>;
-  findByName(titulo: string): Promise<Conteudo>;
+  listarPorModulo(nomeModulo: string): Promise<Conteudo[]>;
+  findByName(nome: string): Promise<Conteudo>;
   findByText(text: string): Promise<Conteudo[]>;
   // findById(id: string): Promise<Conteudo>;
   delete(id: string): Promise<void>;
-  update(titulo: string): Promise<void>;
+  update(nome: string): Promise<void>;
+  addLinks(id: string, links: Link[]): Promise<void>;
 }
 
 export { IRepositorioConteudos, ICreateConteudoDTO };

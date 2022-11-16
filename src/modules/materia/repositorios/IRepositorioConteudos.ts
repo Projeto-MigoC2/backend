@@ -15,7 +15,7 @@ interface IRepositorioConteudos {
   listarPorModulo(nomeModulo: string): Promise<Conteudo[]>;
   findByName(nome: string): Promise<Conteudo>;
   findByText(text: string): Promise<Conteudo[]>;
-  // findById(id: string): Promise<Conteudo>;
+  findById(id: string): Promise<Conteudo>;
   delete(id: string): Promise<void>;
   update(nome: string): Promise<void>;
   addLinks(id: string, links: Link[]): Promise<void>;

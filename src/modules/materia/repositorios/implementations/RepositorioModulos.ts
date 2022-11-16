@@ -27,7 +27,13 @@ class RepositorioModulos implements IRepositorioModulos {
   }
   async list(): Promise<Modulo[]> {
 
-    const modulos = await this.repository.modulo.findMany();
+    const modulos = await this.repository.modulo.findMany(
+      {
+        include: {
+          conteudos: true
+        }
+      }
+    );
 
     return modulos;
 
@@ -38,6 +44,25 @@ class RepositorioModulos implements IRepositorioModulos {
     const modulo = await this.repository.modulo.findFirst({
       where: {
         nome: nome
+      },
+      include: {
+        conteudos: true
+      }
+    })
+
+    return modulo;
+
+
+  }
+
+  async findById(id: string): Promise<Modulo> {
+
+    const modulo = await this.repository.modulo.findFirst({
+      where: {
+        id: id
+      },
+      include: {
+        conteudos: true
       }
     })
 

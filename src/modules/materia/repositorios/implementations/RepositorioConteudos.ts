@@ -45,8 +45,10 @@ class RepositorioConteudos implements IRepositorioConteudos {
 
   async listarTudo(): Promise<Conteudo[]> {
 
+    // select only nome, corpo, links from conteudo
 
     const conteudos = await this.repository.conteudo.findMany({
+
       include: {
         links: true
       }
@@ -66,6 +68,7 @@ class RepositorioConteudos implements IRepositorioConteudos {
       },
       include: {
         links: true
+
       }
     })
 
@@ -80,14 +83,29 @@ class RepositorioConteudos implements IRepositorioConteudos {
         nome: nome
       },
       include: {
-        links: true
-      }
+        links: true,
+      },
     })
 
     return conteudo
 
 
   }
+
+  async findById(id: string): Promise<Conteudo> {
+
+    const conteudo = await this.repository.conteudo.findUnique({
+      where: {
+        id: id
+      },
+      include: {
+        links: true
+      }
+    })
+
+    return conteudo
+  }
+
   async findByText(text: string): Promise<Conteudo[]> {
 
     const conteudos = await this.repository.conteudo.findMany({
@@ -106,11 +124,13 @@ class RepositorioConteudos implements IRepositorioConteudos {
   }
   async delete(id: string): Promise<void> {
 
-    await this.repository.conteudo.delete({
-      where: {
-        id: id
+    await this.repository.conteudo.delete(
+      {
+        where: {
+          id: id
+        }
       }
-    })
+    )
 
 
   }

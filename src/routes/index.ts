@@ -4,7 +4,7 @@ import { conteudosRoutes } from './conteudos.routes';
 
 const router = Router()
 
-router.use('/assuntos', modulosRoutes)
+router.use('/modulos', modulosRoutes)
 router.use('/conteudos', conteudosRoutes)
 
 export { router }

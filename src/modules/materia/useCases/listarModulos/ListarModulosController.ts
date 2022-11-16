@@ -1,15 +1,15 @@
 import { Request, Response } from "express"
 import { container } from "tsyringe";
-import { ListarAssuntosUseCase } from "./ListarAssuntosUseCase";
+import { ListarModulosUseCase } from "./ListarModulosUseCase";
 
-class ListarAssuntoController {
+class ListarModuloController {
   async handle(request: Request, response: Response) {
-    const listarAssuntosUseCase = container.resolve(ListarAssuntosUseCase);
+    const listarModulosUseCase = container.resolve(ListarModulosUseCase);
 
-    const assuntos = await listarAssuntosUseCase.execute();
+    const modulos = await listarModulosUseCase.execute();
 
-    return response.status(200).json(assuntos);
+    return response.status(200).json(modulos);
   }
 }
 
-export { ListarAssuntoController };
+export { ListarModuloController };

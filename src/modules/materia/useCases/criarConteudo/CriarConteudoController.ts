@@ -14,7 +14,7 @@ class CriarConteudoController {
       return response.status(201).send();
     }
     else {
-      return response.status(400).json({ error: "Conteudo já cadastrado" });
+      return response.status(400).json({ error: "Conteudo já cadastrado ou modulo não existe" });
     }
 
   }

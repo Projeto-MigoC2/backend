@@ -4,7 +4,7 @@ import { AcharConteudoNomeUseCase } from "./AcharConteudoNomeUseCase";
 
 class AcharConteudoNomeController {
   async handle(request: Request, response: Response) {
-    const nome = request.query.nome as string;
+    const nome = request.params.nome as string;
     const acharConteudoNomeUseCase = container.resolve(AcharConteudoNomeUseCase);
 
     try {

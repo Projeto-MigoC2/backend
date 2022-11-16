@@ -16,7 +16,7 @@ model Conteudo {
   corpo     String
   // links : {tag: string, url: string}[]
   links     Link[]
-  modulo    Modulo   @relation(fields: [moduloId], references: [id])
+  modulo    Modulo   @relation(fields: [moduloId], references: [id], onDelete: Cascade)
   moduloId  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -24,11 +24,11 @@ model Conteudo {
 
 model Link {
   id         String   @id @default(uuid())
-  tag        String
+  tag        String   @unique
   url        String
-  conteudo   Conteudo @relation(fields: [conteudoId], references: [id])
+  conteudo   Conteudo @relation(fields: [conteudoId], references: [id], onDelete: Cascade)
   // conteudoId default to conteudo.id
-  conteudoId String   @default(dbgenerated("conteudo.id"))
+  conteudoId String   @default("")
 }
 
 model Modulo {

@@ -108,16 +108,28 @@ class RepositorioConteudos implements IRepositorioConteudos {
 
   async findByText(text: string): Promise<Conteudo[]> {
 
+    // given a text, return all conteudos that have that text in the body or in the name
+
     const conteudos = await this.repository.conteudo.findMany({
       where: {
-        nome: {
-          contains: text
-        }
+        OR: [
+          {
+            nome: {
+              contains: text
+            }
+          },
+          {
+            corpo: {
+              contains: text
+            }
+          }
+        ]
       },
       include: {
         links: true
       }
     })
+
 
     return conteudos
 

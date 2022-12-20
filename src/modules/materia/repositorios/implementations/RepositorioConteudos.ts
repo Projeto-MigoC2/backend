@@ -13,14 +13,14 @@ class RepositorioConteudos implements IRepositorioConteudos {
 
   }
 
-
-  async create({ nome, corpo, links, moduloId }: ICreateConteudoDTO): Promise<void> {
+  async create({ nome, corpo, links, tags, moduloId }: ICreateConteudoDTO): Promise<void> {
 
 
     const conteudo = await this.repository.conteudo.create({
       data: {
         nome: nome,
         corpo: corpo,
+        tags: tags,
         moduloId: moduloId
       }
     })
@@ -37,6 +37,22 @@ class RepositorioConteudos implements IRepositorioConteudos {
       },
       data: {
         links: {
+          create: links
+        }
+      }
+    })
+  }
+  async updateLinks(id: string, links: Link[]): Promise<void> {
+
+    // remove all links and add the new ones
+
+    await this.repository.conteudo.update({
+      where: {
+        id: id
+      },
+      data: {
+        links: {
+          deleteMany: {},
           create: links
         }
       }
@@ -122,6 +138,12 @@ class RepositorioConteudos implements IRepositorioConteudos {
             corpo: {
               contains: text
             }
+          },
+          // search in the list of tags
+          {
+            tags: {
+              has: text
+            }
           }
         ]
       },
@@ -146,9 +168,21 @@ class RepositorioConteudos implements IRepositorioConteudos {
 
 
   }
-  async update(nome: string): Promise<void> {
+  async update(nome: string, novoNome: string, corpo: string, tags: string[], links: Link[]): Promise<void> {
 
-    // not implemented
+    const conteudo = await this.repository.conteudo.update({
+      where: {
+        nome: nome
+      }
+      ,
+      data: {
+        nome: novoNome,
+        corpo: corpo,
+        tags: tags
+      }
+    })
+
+    await this.updateLinks(conteudo.id, links)
 
 
   }

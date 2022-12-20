@@ -7,6 +7,7 @@ import { ListarConteudoController } from '../modules/materia/useCases/listarCont
 import { AcharConteudoNomeController } from '../modules/materia/useCases/acharConteudoNome/AcharConteudoNomeController';
 import { AcharConteudoTextoController } from '../modules/materia/useCases/acharConteudoTexto/AcharConteudoTextoController';
 import { DeletarConteudoController } from '../modules/materia/useCases/deletarConteudo/DeletarConteudoController';
+import { AtualizarConteudoController } from '../modules/materia/useCases/atualizarConteudo/AtualizarConteudoController';
 
 const conteudosRoutes = Router()
 
@@ -16,12 +17,17 @@ const addAssuntoConteudoController = new AddAssuntoConteudoController();
 const acharConteudoNomeController = new AcharConteudoNomeController();
 const acharConteudoTextoController = new AcharConteudoTextoController();
 const deleteConteudoController = new DeletarConteudoController();
+const atualizarConteudoController = new AtualizarConteudoController();
 
 conteudosRoutes.post('/', createConteudoController.handle);
+
 conteudosRoutes.get('/', listConteudoController.handle);
 conteudosRoutes.get("/pesquisa", acharConteudoTextoController.handle);
 conteudosRoutes.get("/:nome", acharConteudoNomeController.handle);
+
 conteudosRoutes.patch('/assunto', addAssuntoConteudoController.handle);
+conteudosRoutes.patch('/', atualizarConteudoController.handle);
+
 conteudosRoutes.delete('/', deleteConteudoController.handle);
 
 export { conteudosRoutes }

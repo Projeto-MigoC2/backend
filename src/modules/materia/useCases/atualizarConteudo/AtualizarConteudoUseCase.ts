@@ -23,12 +23,9 @@ class AtualizarConteudoUseCase {
   ) { }
 
   async execute({ nome, novoNome, corpo, tags, links }: IRequest): Promise<boolean> {
+
+    if(nome != novoNome){
     const ConteudoJaExiste = await this.RepositorioConteudos.findByName(nome);
-
-
-    // check if modulo exists using moduloId
-
-
 
     if (!ConteudoJaExiste) {
       return false;
@@ -43,6 +40,10 @@ class AtualizarConteudoUseCase {
       return false;
 
     }
+    
+    }
+
+    // check if modulo exists using moduloId
 
     else {
       await this.RepositorioConteudos.update(nome, novoNome, corpo, tags, links);

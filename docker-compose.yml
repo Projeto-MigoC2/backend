@@ -3,7 +3,7 @@ version: "3.7"
 services:
   database:
     image: postgres
-    container_name: database_migoc2
+    container_name: database_migoc2-teste
     restart: always
     ports:
       - 5432:5432
@@ -13,20 +13,6 @@ services:
       - POSTGRES_DB=migoc2
     volumes:
       - pgdata:/data/postgres
-    networks:
-      - develop-net
-
-  app:
-    build: .
-    container_name: migoc2
-    ports:
-      - 3000:3000
-    volumes:
-      - .:/usr/app
-    links:
-      - database
-    depends_on:
-      - database
     networks:
       - develop-net
 

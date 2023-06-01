@@ -1,8 +1,10 @@
 import { Router } from 'express';
-import { assuntosRoutes } from './assuntos.routes';
+import { modulosRoutes } from './modulos.routes';
+import { conteudosRoutes } from './conteudos.routes';
 
 const router = Router()
 
-router.use('/assuntos', assuntosRoutes)
+router.use('/modulos', modulosRoutes)
+router.use('/conteudos', conteudosRoutes)
 
 export { router }

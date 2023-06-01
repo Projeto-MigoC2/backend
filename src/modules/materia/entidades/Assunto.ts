@@ -9,10 +9,6 @@ class Assunto {
   @Column()
   titulo: string;
 
-  @Column("varchar", { array: true, nullable: true })
-  conteudos_id: string[];
-
-
   constructor() {
     if (!this.id) {
       this.id = uuid();

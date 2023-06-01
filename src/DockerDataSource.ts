@@ -2,16 +2,16 @@ import { DataSource } from "typeorm"
 
 const AppDataSource = new DataSource({
   type: "postgres",
-  host: "database",
+  host: "localhost",
   port: 5432,
   username: "docker",
   password: "segredo",
   database: "migoc2",
   "migrations": [
-    "./src/database/migrations/*.ts"
+    "./dist/database/migrations/*.js"
   ],
   entities: [
-    "./src/modules/**/entidades/*.ts"
+    "./dist/modules/**/entidades/*.js"
   ]
 })
 

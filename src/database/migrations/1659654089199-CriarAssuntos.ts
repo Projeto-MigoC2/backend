@@ -15,15 +15,7 @@ export class CriarAssuntos1659654089199 implements MigrationInterface {
                     {
                         name: "titulo",
                         type: "varchar",
-                    },
-                    // array of conteudos id
-                    {
-                        name: "conteudos_id",
-                        type: "uuid[]",
-                        isNullable: true
-
                     }
-
                 ]
             })
         )

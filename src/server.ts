@@ -1,23 +1,16 @@
 import express, { NextFunction, Request, Response } from "express";
+import 'express-async-errors';
+
 import swaggerUi from "swagger-ui-express";
 
 import "reflect-metadata";
 
-import { AppDataSource } from "./DockerDataSource";
+import { AppError } from "./errors/AppError";
 import { router } from "./routes";
 
 import swaggerFile from "./swagger.json";
 
 import "./shared/container";
-import { AppError } from "./errors/AppError";
-
-// AppDataSource.initialize()
-//   .then(() => {
-//     console.log("Conexão com o banco de dados bem sucedida!");
-//   })
-//   .catch((err) => {
-//     console.error(" Conexão com o banco de dados falhou ", err)
-//   })
 
 const app = express();
 
@@ -25,6 +18,7 @@ app.use(express.json());
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
+app.use(router)
 app.use(
   (err: Error, request: Request, response: Response, next: NextFunction) => {
 
@@ -42,6 +36,5 @@ app.use(
   }
 );
 
-app.use(router)
 
 app.listen(3000, () => console.log("aplicação rodando na porta 3000\nlink para o swagger: http://localhost:3000/api-docs/"));

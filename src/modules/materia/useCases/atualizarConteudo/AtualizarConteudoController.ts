@@ -8,14 +8,11 @@ class AtualizarConteudoController {
 
     const atualizarConteudoUseCase = container.resolve(AtualizarConteudoUseCase);
 
-    const atualizar = await atualizarConteudoUseCase.execute({ nome, novoNome, corpo, tags, links });
+    await atualizarConteudoUseCase.execute({ nome, novoNome, corpo, tags, links });
 
-    if (atualizar) {
-      return response.status(201).send();
-    }
-    else {
-      return response.status(400).json({ error: "Não foi possível atualizar o conteudo, revise os dados." });
-    }
+
+    return response.status(201).send();
+  
 
   }
 }

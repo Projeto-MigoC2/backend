@@ -2,7 +2,9 @@ import { Link } from "@prisma/client";
 import { inject, injectable } from "tsyringe";
 
 import { IRepositorioConteudos } from "../../repositorios/IRepositorioConteudos";
-import { IRepositorioModulos } from "../../repositorios/IRepositorioModulos";
+import { AppError } from "../../../../errors/AppError";
+
+
 
 interface IRequest {
   nome: string;
@@ -17,39 +19,26 @@ interface IRequest {
 class AtualizarConteudoUseCase {
   constructor(
     @inject("RepositorioConteudos")
-    private RepositorioConteudos: IRepositorioConteudos,
-    @inject("RepositorioModulos")
-    private RepositorioModulos: IRepositorioModulos
+    private RepositorioConteudos: IRepositorioConteudos
   ) { }
 
-  async execute({ nome, novoNome, corpo, tags, links }: IRequest): Promise<boolean> {
+  async execute({ nome, novoNome, corpo, tags, links }: IRequest): Promise<void> {
+
+
+    const ConteudoExiste = await this.RepositorioConteudos.findByName(nome);
+
+    if (!ConteudoExiste) {
+      throw new AppError("Conteudo não existe", 404);
+    }
 
     if(nome != novoNome){
-    const ConteudoJaExiste = await this.RepositorioConteudos.findByName(nome);
-
-    if (!ConteudoJaExiste) {
-      return false;
-
+      const NovoConteudoJaExiste = await this.RepositorioConteudos.findByName(novoNome);
+      if(NovoConteudoJaExiste){
+        throw new AppError("Já existe um conteudo com esse nome");
+      }
     }
 
-    // verificar se o novo nome já existe
-
-    const NovoConteudoJaExiste = await this.RepositorioConteudos.findByName(novoNome);
-
-    if (NovoConteudoJaExiste) {
-      return false;
-
-    }
-    
-    }
-
-    // check if modulo exists using moduloId
-
-    else {
-      await this.RepositorioConteudos.update(nome, novoNome, corpo, tags, links);
-      return true;
-    }
-
+    await this.RepositorioConteudos.update(nome, novoNome, corpo, tags, links);
 
   }
 }

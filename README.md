@@ -1,4 +1,5 @@
 # MigoC2-Backend
+
 Repositório destinado ao backend do projeto MigoC2
 Para ver os métodos da API já implementados, acesse o link a baixo com a aplicação rodando:  
 http://localhost:3000/api-docs/
@@ -7,16 +8,13 @@ http://localhost:3000/api-docs/
 
 ### requesitos
 
-* [Docker](https://docs.docker.com/get-started/),
+- [Docker](https://docs.docker.com/get-started/),
 
-* [docker-compose](https://docs.docker.com/compose/install/
-),
+- [docker-compose](https://docs.docker.com/compose/install/),
 
-* [nodeJS](https://nodejs.org/en/download
-),
+- [nodeJS](https://nodejs.org/en/download),
 
-* [yarn](https://yarnpkg.com/getting-started/install
-),
+- [yarn](https://yarnpkg.com/getting-started/install),
 
 ### Configuração do Projeto
 
@@ -48,19 +46,27 @@ Siga as etapas abaixo para configurar o projeto em seu ambiente local:
 
 Após a configuração do projeto, siga as etapas abaixo para executá-lo:
 
-1. Gere os arquivos de código do Prisma:
+1. Inicie o banco de dados:
+
+   ```
+   docker compose up
+   ```
+
+2. Gere os arquivos de código do Prisma:
 
    ```
    yarn prisma generate
    ```
-2. Execute as migrações do banco de dados:
+
+3. Execute as migrações do banco de dados:
 
    ```
    yarn prisma migrate dev
    ```
+
    Isso criará as tabelas e as estruturas necessárias no banco de dados.
 
-3. Inicie o servidor de desenvolvimento:
+4. Inicie o servidor de desenvolvimento:
 
    ```
    yarn dev
@@ -71,7 +77,6 @@ Após a configuração do projeto, siga as etapas abaixo para executá-lo:
 ### Testando o Projeto
 
 Você pode usar ferramentas como o Postman ou o Insomnia para enviar solicitações HTTP para o servidor backend e testar suas APIs.
-
 
 ### Considerações Finais
 

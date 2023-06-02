@@ -3,7 +3,7 @@ version: "3.7"
 services:
   database:
     image: postgres
-    container_name: database_migoc2-teste
+    container_name: database_migoc2
     restart: always
     ports:
       - 5432:5432
